@@ -34,16 +34,22 @@ function renderPizzas() {
     let pizza1 = getRandomNumber();
     let pizza2 = getRandomNumber();
     let pizza3 = getRandomNumber();
+
+    while (pizza1 === pizza2) {
+        pizza2 = getRandomNumber()
+    };
+    while (pizza1 === pizza3) {
+        pizza3 = getRandomNumber()
+    };
+    while (pizza2 === pizza3) {
+        pizza3 = getRandomNumber()
+    };
 }
 
-while(pizza1 === pizza2) {
-    pizza2 = getRandomNumber();
+
+
+
 }
-
-
-
-
-
 
 
 
