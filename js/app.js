@@ -1,4 +1,6 @@
-// As a user, I would like to display three unique products by chance so that the viewers can pick a favorite.
+'use strict';
+
+console.log('js is connected.');
 
 // Create an algorithm that will randomly generate three unique product images from the images directory and display them side-by-side-by-side in the browser window.
 
@@ -12,10 +14,16 @@
 
 // After every selection by the viewer, update the newly added property to reflect if it was clicked.
 
+// ???
+// let pizzaContainer = document.querySelector('section');
+// let resultButton = document.querySelector('section + div');
+// let image1 = document.querySelector('section img:first-child');
+// let image2 = document.querySelector('section img:nth-child(2)');
+
 
 let clicks = 0;
 let maxAttemptsAllowed = 25;
-let allPizzasArray = [];
+Pizza.allPizzasArray = [];
 //why is this array in the Pizza constructor obj?
 
 function Pizza(productName, imgFilePath) {
@@ -23,36 +31,47 @@ function Pizza(productName, imgFilePath) {
     this.imgFilePath = imgFilePath;
     this.timesShown = 0;
     this.click = 0;
-    allPizzasArray.push(this);
+    Pizza.allPizzasArray.push(this);
 }
 
 function getRandomNumber() {
-    return Math.round(Math.random() * allPizzasArray.length);
+    return Math.round(Math.random() * Pizza.allPizzasArray.length -1);
+    //-1? bc array?
 }
+
+new Pizza('Brick Oven Pizza', 'images/brickOvenPizza.jpg');
+new Pizza('Calzone', 'images/calzonePizza.jpg');
+new Pizza('Chicago Deep Dish', 'images/chicagoPizza.jpg');
+new Pizza('Chicago Pizza and Oven Grinder', 'images/cpoGinderPizza.jpg');
+new Pizza('Detroit Style', 'images/detroitPizza.jpg');
+new Pizza('Papa Vito\'s Thin', 'images/mwDeluxePizzaThinCrust.jpg');
+new Pizza('New York Thin', 'images/newYorkPizza.jpg');
+new Pizza('Shot Gun Dans Pizza', 'images/sgDansHtossedMeatLovPizza.jpg');
+
+// console.log(allPizzasArray)
+
 
 function renderPizzas() {
-    let pizza1 = getRandomNumber();
-    let pizza2 = getRandomNumber();
-    let pizza3 = getRandomNumber();
+    let pizza1 = Pizza.allPizzasArray[getRandomNumber()];
+    let pizza2 = Pizza.allPizzasArray[getRandomNumber()];
+    let pizza3 = Pizza.allPizzasArray[getRandomNumber()];
 
     while (pizza1 === pizza2) {
-        pizza2 = getRandomNumber()
+        Pizza.allPizzasArray[getRandomNumber()]
     };
     while (pizza1 === pizza3) {
-        pizza3 = getRandomNumber()
+        Pizza.allPizzasArray[getRandomNumber()]
     };
     while (pizza2 === pizza3) {
-        pizza3 = getRandomNumber()
+        Pizza.allPizzasArray[getRandomNumber()]
     };
+
+    // console.log(`pizza 1 is ${pizza1} and pizza2 is ${pizza2} and pizza3 is ${pizza3}`)
 }
 
+renderPizzas();
 
-
-
-}
-
-
-
+console.log(allPizzasArray)
 
 // As a user, I would like to control the number of rounds a user is presented with so that I can control the voting session duration.
 // By default, the user should be presented with 25 rounds of voting before ending the session.
