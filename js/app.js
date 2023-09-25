@@ -35,7 +35,7 @@ function Pizza(productName, imgFilePath) {
 }
 
 function getRandomNumber() {
-    return Math.round(Math.random() * Pizza.allPizzasArray.length -1);
+    return Math.floor(Math.random() * Pizza.allPizzasArray.length);
     //-1? bc array?
 }
 
@@ -48,30 +48,51 @@ new Pizza('Papa Vito\'s Thin', 'images/mwDeluxePizzaThinCrust.jpg');
 new Pizza('New York Thin', 'images/newYorkPizza.jpg');
 new Pizza('Shot Gun Dans Pizza', 'images/sgDansHtossedMeatLovPizza.jpg');
 
-// console.log(allPizzasArray)
+// console.log('all pizzas array', Pizza.allPizzasArray)
 
+
+// function renderPizzas() {
+//     let pizza1 = Pizza.allPizzasArray[getRandomNumber()];
+//     let pizza2 = Pizza.allPizzasArray[getRandomNumber()];
+//     let pizza3 = Pizza.allPizzasArray[getRandomNumber()];
+
+//     while (pizza1 === pizza2) {
+//         pizza2 = Pizza.allPizzasArray[getRandomNumber()]
+//     };
+//     while (pizza1 === pizza3) {
+//         pizza3 = Pizza.allPizzasArray[getRandomNumber()]
+//     };
+//     while (pizza2 === pizza3) {
+//         pizza3 = Pizza.allPizzasArray[getRandomNumber()]
+//     };
+
+
+// }
+
+
+
+// console.log(Pizza.allPizzasArray[0])
 
 function renderPizzas() {
-    let pizza1 = Pizza.allPizzasArray[getRandomNumber()];
-    let pizza2 = Pizza.allPizzasArray[getRandomNumber()];
-    let pizza3 = Pizza.allPizzasArray[getRandomNumber()];
 
-    while (pizza1 === pizza2) {
-        Pizza.allPizzasArray[getRandomNumber()]
-    };
-    while (pizza1 === pizza3) {
-        Pizza.allPizzasArray[getRandomNumber()]
-    };
-    while (pizza2 === pizza3) {
-        Pizza.allPizzasArray[getRandomNumber()]
-    };
+    let pizzaIndices = [];
 
-    // console.log(`pizza 1 is ${pizza1} and pizza2 is ${pizza2} and pizza3 is ${pizza3}`)
+    while (pizzaIndices.length < 3) {
+        const randomIndex = getRandomNumber();
+        if (!pizzaIndices.includes(randomIndex)) {
+            pizzaIndices.push(randomIndex)
+        }
+    }
+
+    let pizza1 = Pizza.allPizzasArray[pizzaIndices[0]];
+    let pizza2 = Pizza.allPizzasArray[pizzaIndices[1]];
+    let pizza3 = Pizza.allPizzasArray[pizzaIndices[2]];
+
+    console.log(`pizza 1 is ${pizza1.productName} and pizza2 is ${pizza2.productName} and pizza3 is ${pizza3.productName}`)
 }
 
 renderPizzas();
 
-console.log(allPizzasArray)
 
 // As a user, I would like to control the number of rounds a user is presented with so that I can control the voting session duration.
 // By default, the user should be presented with 25 rounds of voting before ending the session.
@@ -85,7 +106,4 @@ console.log(allPizzasArray)
 
 // NOTE: Displayed product names should match the file name for the product. Example: the product represented with dog-duck.jpg should be displayed to the user as exactly “dog-duck” when the results are shown.
 
-// Using Lighthouse in the Chrome DevTools, analyze the accessibility of your application.
-
-// In this module, try for a score higher than 80. Make necessary adjustments based on the report to achieve that score.
-// Add a screenshot of your score to your README.md file.
+// Using Lighthouse in the Chrome DevTools, analyze the accessibility of your application. Try for a score higher than 80. Make necessary adjustments based on the report to achieve that score. Add a screenshot of your score to your README.md file.
