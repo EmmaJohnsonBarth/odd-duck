@@ -32,17 +32,6 @@ h2 {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-}
-
-video,
-audio,
-img {
-    margin: 2rem auto;
-}
-
 main {
     background-color: aliceblue;
     width: 1024px;
@@ -52,6 +41,19 @@ main {
     grid-template-columns: 250px 4fr;
     grid-template-rows: 10rem 10rem 20rem 40%;
 }
+
+img {
+    margin: 2rem auto;
+}
+/* 
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+
+
+
 
 #siteLogo {
     width: 250px;
@@ -174,4 +176,4 @@ section+div {
     height: max-content;
     width: max-content;
 
-}
+} */
