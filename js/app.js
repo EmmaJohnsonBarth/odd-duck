@@ -64,7 +64,7 @@ new Product('Weird Wine Glass', 'images/wine-glass.jpg');
 
 
 function handleClickOnProduct(event) {
-//tag name is 'IMG'? Case sens?
+    //tag name is 'IMG'? Case sens?
     if (event.target.tagName !== 'IMG') {
         return;
     };
@@ -75,7 +75,7 @@ function handleClickOnProduct(event) {
     centerProductOnThePage.timesShown++;
     rightProductImage.timesShown++;
 
-    if (event.target.id ==='left_product_img') {
+    if (event.target.id === 'left_product_img') {
         leftProductOnThePage.click++
     }
     if (event.target.id === 'center_product_img') {
@@ -85,16 +85,14 @@ function handleClickOnProduct(event) {
         rightProductOnThePage.click++
     }
 
+    //return this?
     const tempPickedProducts = [];
-
-    let 
-
 }
 
 function getRandomNumber() {
     return Math.floor(Math.random() * allProductsArray.length);
-  }
-  
+}
+
 function renderProducts() {
     let ProductIndices = [];
     while (ProductIndices.length < 3) {
@@ -103,19 +101,28 @@ function renderProducts() {
             ProductIndices.push(randomIndex)
         };
     };
-    let Product1 = allProductsArray[ProductIndices[0]];
-    let Product2 = allProductsArray[ProductIndices[1]];
-    let Product3 = allProductsArray[ProductIndices[2]];
-    console.log(`Product 1 is ${Product1.productName} and Product2 is ${Product2.productName} and Product3 is ${Product3.productName}`)
+    let leftProductOnThePage = allProductsArray[ProductIndices[0]];
+    let centerProductOnThePage = allProductsArray[ProductIndices[1]];
+    let rightProductOnThePage = allProductsArray[ProductIndices[2]];
+
+    leftProductImage.src = leftProductOnThePage.imgFilePath;
+    centerProductImage.src = centerProductOnThePage.imgFilePath;
+    rightProductImage.src = rightProductOnThePage.imgFilePath;
+
+    let previouslyPickedProducts = [];
+    previouslyPickedProducts.push(allProductsArray[leftProductOnThePage])
+    previouslyPickedProducts.push(allProductsArray[centerProductOnThePage])
+    previouslyPickedProducts.push(allProductsArray[rightProductOnThePage])
+
+    if (totalClick === 25){
+        productImageSelectionTag.removeEventListener('click', handleClickOnProduct);
+    }
 }
 
-// renderProducts();
+renderProducts();
 
+function handleResultsList() { }
 
+function handleChartResults() { }
 
-
-function handleResultsList(){}
-
-function handleChartResults(){}
-
-function makeAProductChart(){}
+function makeAProductChart() { }

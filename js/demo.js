@@ -24,15 +24,15 @@ let chartResults = document.getElementById('chartResults');
 
 //create a constructor function that will create pizza objects that holds data about our pizzas and the clicking info. {pizza info in these objects.}
 //function express so we a semi colon.....
-const PizzaPicture = function(pizzaName, imageSrc){
-  // we are assigning our args to the contextual 'this'
-  this.pizzaName = pizzaName;
-  this.imageSrc = imageSrc;
-  //for when they are clicked on we add up by 1
-  this.clicks = 0;
-  // how many did we show the image
-  this.timesShown = 0;
-  allPizzas.push(this);
+const PizzaPicture = function (pizzaName, imageSrc) {
+    // we are assigning our args to the contextual 'this'
+    this.pizzaName = pizzaName;
+    this.imageSrc = imageSrc;
+    //for when they are clicked on we add up by 1
+    this.clicks = 0;
+    // how many did we show the image
+    this.timesShown = 0;
+    allPizzas.push(this);
 };
 
 
@@ -62,85 +62,85 @@ const PizzaPicture = function(pizzaName, imageSrc){
   remove the event listener so the user can not click any more.
 
  *  */
-function handleClickOnPizza(event){
-  // console.log('from hanlde image click', event.target);
-  if(event.target.tagName !== 'IMG'){
-    return;
-  }
-  //counts up our total clicks
-  totalClicks++;
-  //times shown ~ add a new global to track the current image
-  leftPizzaOnThePage.timesShown++;
-  rightPizzaOnThePage.timesShown++;
-  console.log(totalClicks);
-  if(event.target.id === 'left_pizza_img'){
-    leftPizzaOnThePage.clicks++;
-  }
-  //counting the clicked on image and we only one of this ids per click
-  if(event.target.id === 'right_pizza_img'){
-    rightPizzaOnThePage.clicks++;
-  }
-  //handle viewing the previous images
-  const tempPickedPizzas = [];
+function handleClickOnPizza(event) {
+    // console.log('from hanlde image click', event.target);
+    if (event.target.tagName !== 'IMG') {
+        return;
+    }
+    //counts up our total clicks
+    totalClicks++;
+    //times shown ~ add a new global to track the current image
+    leftPizzaOnThePage.timesShown++;
+    rightPizzaOnThePage.timesShown++;
+    console.log(totalClicks);
+    if (event.target.id === 'left_pizza_img') {
+        leftPizzaOnThePage.clicks++;
+    }
+    //counting the clicked on image and we only one of this ids per click
+    if (event.target.id === 'right_pizza_img') {
+        rightPizzaOnThePage.clicks++;
+    }
+    //handle viewing the previous images
+    const tempPickedPizzas = [];
 
-  let leftPizzaIndex;
-  do{
-    leftPizzaIndex = Math.floor(Math.random() * allPizzas.length);
-  } while(previouslyPickedPizzas.includes(allPizzas[leftPizzaIndex]) ||
-    tempPickedPizzas.includes(allPizzas[leftPizzaIndex]));
-  tempPickedPizzas.push(allPizzas[leftPizzaIndex]);
+    let leftPizzaIndex;
+    do {
+        leftPizzaIndex = Math.floor(Math.random() * allPizzas.length);
+    } while (previouslyPickedPizzas.includes(allPizzas[leftPizzaIndex]) ||
+        tempPickedPizzas.includes(allPizzas[leftPizzaIndex]));
+    tempPickedPizzas.push(allPizzas[leftPizzaIndex]);
 
-  let rightPizzaIndex;
-  do{
-    rightPizzaIndex = Math.floor(Math.random() * allPizzas.length);
-  } while(previouslyPickedPizzas.includes(allPizzas[rightPizzaIndex]) ||
-    tempPickedPizzas.includes(allPizzas[rightPizzaIndex]));
-  tempPickedPizzas.push(allPizzas[rightPizzaIndex]);
+    let rightPizzaIndex;
+    do {
+        rightPizzaIndex = Math.floor(Math.random() * allPizzas.length);
+    } while (previouslyPickedPizzas.includes(allPizzas[rightPizzaIndex]) ||
+        tempPickedPizzas.includes(allPizzas[rightPizzaIndex]));
+    tempPickedPizzas.push(allPizzas[rightPizzaIndex]);
 
-  leftPizzaOnThePage = allPizzas[leftPizzaIndex];
-  rightPizzaOnThePage = allPizzas[rightPizzaIndex];
-  console.log(leftPizzaOnThePage, rightPizzaOnThePage);
-  //now update on the page
-  //clickable new images being shown.
-  console.log(leftPizzaOnThePage.imageSrc, rightPizzaOnThePage.imageSrc);
-  leftPizzaImage.src = leftPizzaOnThePage.imageSrc;
-  rightPizzaImage.src = rightPizzaOnThePage.imageSrc;
+    leftPizzaOnThePage = allPizzas[leftPizzaIndex];
+    rightPizzaOnThePage = allPizzas[rightPizzaIndex];
+    console.log(leftPizzaOnThePage, rightPizzaOnThePage);
+    //now update on the page
+    //clickable new images being shown.
+    console.log(leftPizzaOnThePage.imageSrc, rightPizzaOnThePage.imageSrc);
+    leftPizzaImage.src = leftPizzaOnThePage.imageSrc;
+    rightPizzaImage.src = rightPizzaOnThePage.imageSrc;
 
-  //handle the previously picked pizzas
-  previouslyPickedPizzas = [];
-  previouslyPickedPizzas.push(allPizzas[leftPizzaIndex]);
-  previouslyPickedPizzas.push(allPizzas[rightPizzaIndex]);
-  console.log('previous',previouslyPickedPizzas);
+    //handle the previously picked pizzas
+    previouslyPickedPizzas = [];
+    previouslyPickedPizzas.push(allPizzas[leftPizzaIndex]);
+    previouslyPickedPizzas.push(allPizzas[rightPizzaIndex]);
+    console.log('previous', previouslyPickedPizzas);
 
-  console.log('Tot clicks',totalClicks);
-  if(totalClicks === 25){
-    pizzaImageSectionTag.removeEventListener('click', handleClickOnPizza);
-  }
+    console.log('Tot clicks', totalClicks);
+    if (totalClicks === 25) {
+        pizzaImageSectionTag.removeEventListener('click', handleClickOnPizza);
+    }
 }//closes our function
 
 
 //create a function handleResult list showing ul and li on the left side of the page
-function handleResultsList(){
-  // console.log('proof from handle results list lis');
-  document.getElementById('pizza-clicks-list').style.background = '#8197c9';
-  document.getElementById('pizza-clicks-list').style.color = 'whitesmoke';
-  let ul = document.getElementById('pizza-clicks-list');
-  for(let i = 0; i < allPizzas.length; i++){
-    let currentPizza =  allPizzas[i];
-    let li = document.createElement('li');
-    li.textContent = currentPizza.pizzaName + ' got ' + currentPizza.clicks + ' votes';
-    // console.log('li: ',li);
-    ul.appendChild(li);
-  }
+function handleResultsList() {
+    // console.log('proof from handle results list lis');
+    document.getElementById('pizza-clicks-list').style.background = '#8197c9';
+    document.getElementById('pizza-clicks-list').style.color = 'whitesmoke';
+    let ul = document.getElementById('pizza-clicks-list');
+    for (let i = 0; i < allPizzas.length; i++) {
+        let currentPizza = allPizzas[i];
+        let li = document.createElement('li');
+        li.textContent = currentPizza.pizzaName + ' got ' + currentPizza.clicks + ' votes';
+        // console.log('li: ',li);
+        ul.appendChild(li);
+    }
 }
 
 
 
 //Eventually add the chart here form canvas.js big concept not much to code.
-function handleChartResults(){
-  // console.log('proof from handle chart results');
-  //going to call the createChart function/
-  makeAPizzaChart();
+function handleChartResults() {
+    // console.log('proof from handle chart results');
+    //going to call the createChart function/
+    makeAPizzaChart();
 }
 
 //add our event listeners for our button clicks  = 'click' events functions
@@ -168,44 +168,44 @@ rightPizzaOnThePage = allPizzas[1];
 
 
 
-function makeAPizzaChart(){
-  //use a for loop on our objects to pull our click info for the chart to display.
-  //here is where our chart wi
-  console.log('we made it to the chart function.');
-  // this info is currently in our allPizza array.
-  const pizzaNamesArray = [];
-  const pizzaClicksArray = [];
+function makeAPizzaChart() {
+    //use a for loop on our objects to pull our click info for the chart to display.
+    //here is where our chart wi
+    console.log('we made it to the chart function.');
+    // this info is currently in our allPizza array.
+    const pizzaNamesArray = [];
+    const pizzaClicksArray = [];
 
-  for(let i = 0; i < allPizzas.length; i++){
-    let singlePizzaName = allPizzas[i].pizzaName;
-    pizzaNamesArray.push(singlePizzaName);
-    console.log(pizzaNamesArray);
-  }
-
-  for(let i = 0; i < allPizzas.length; i++){
-    let singlePizzaClicks = allPizzas[i].clicks;
-    pizzaClicksArray.push(singlePizzaClicks);
-  }
-
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: pizzaNamesArray,
-      datasets: [{
-        label: 'Pizza Clicks',
-        data: pizzaClicksArray,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(0, 99, 132)',
-        borderWidth: 4
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
+    for (let i = 0; i < allPizzas.length; i++) {
+        let singlePizzaName = allPizzas[i].pizzaName;
+        pizzaNamesArray.push(singlePizzaName);
+        console.log(pizzaNamesArray);
     }
-  });
+
+    for (let i = 0; i < allPizzas.length; i++) {
+        let singlePizzaClicks = allPizzas[i].clicks;
+        pizzaClicksArray.push(singlePizzaClicks);
+    }
+
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: pizzaNamesArray,
+            datasets: [{
+                label: 'Pizza Clicks',
+                data: pizzaClicksArray,
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(0, 99, 132)',
+                borderWidth: 4
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
