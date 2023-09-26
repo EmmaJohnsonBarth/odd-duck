@@ -72,7 +72,7 @@ function handleClickOnPizza(event) {
     //times shown ~ add a new global to track the current image
     leftPizzaOnThePage.timesShown++;
     rightPizzaOnThePage.timesShown++;
-    console.log(totalClicks);
+    // console.log(totalClicks);
     if (event.target.id === 'left_pizza_img') {
         leftPizzaOnThePage.clicks++;
     }

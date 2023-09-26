@@ -15,6 +15,7 @@ let leftProductImage = document.getElementById('left_product_img');
 let centerProductImage = document.getElementById('center_product_img');
 let rightProductImage = document.getElementById('right_product_img');
 
+//do we need to declare these here?
 let leftProductOnThePage;
 let centerProductOnThePage;
 let rightProductOnThePage;
@@ -46,7 +47,7 @@ new Product('Utensil Pen', 'images/pen.jpg');
 new Product('Dog Sweeper', 'images/sweep.png');
 new Product('Pizza Scissors', 'images/scissors.jpg');
 new Product('Shark Sleeping Bag', 'images/shark.jpg');
-new Product('Baby Sweep', 'images/sweep.jpg');
+new Product('Baby Sweep', 'images/sweep.png');
 new Product('Tauntaun Slwwping Bag', 'images/tauntaun.jpg');
 new Product('Unicorn Meat', 'images/unicorn.jpg');
 new Product('Inverse Watering Can', 'images/water-can.jpg');
@@ -57,15 +58,11 @@ new Product('Weird Wine Glass', 'images/wine-glass.jpg');
 
 //Other Functions:
 
-
-
 // console.log(allProductsArray[0])
-
-
 
 function handleClickOnProduct(event) {
     //tag name is 'IMG'? Case sens?
-    if (event.target.tagName !== 'IMG') {
+    if (event.target.tagName !== 'img') {
         return;
     };
 
@@ -121,8 +118,47 @@ function renderProducts() {
 
 renderProducts();
 
-function handleResultsList() { }
+function handleResultsList() {
+    // document.getElementById(product-click-list)
+    // document.getElementById(product-click-list)
+    let ul = document.getElementById(product-click-list) 
+    for (let i=0; i<allProductsArray.length;i++) {
+        let currentProduct = allProductsArray[i];
+        let li = document.createElement('li');
+        li.textContent=currentProduct.productName + ' got ' + currentProduct.click + 'votes';
+        ul.appendChild(li);
+    }
+ }
 
-function handleChartResults() { }
+ //??
+function handleChartResults() {
+    makeAProductChart();
+ }
 
-function makeAProductChart() { }
+ productImageSelectionTag.addEventListener('click', handleClickOnProduct);
+
+ resultsList.addEventListener('click', handleResultsList);
+
+ chartResults.addEventListener('click', handleChartResults);
+
+ leftProductOnThePage = allProductsArray[0];
+ centerProductOnThePage = allProductsArray[1];
+ rightProductOnThePage = allProductsArray[2];
+
+function makeAProductChart() {
+    const productNamesArray = [];
+    const productClickArray = [];
+    for (let i = 0; i < allProductsArray.length; i++) {
+        let singleProductName = allProductsArray[i].productName;
+        productNamesArray.push(singleProductName)
+    }
+
+    for(let i = 0; i<allProductsArray.length; i++) {
+        let singleProductClick = allProductsArray[i].click;
+        productClickArray.push(singleProductClick)
+    }
+
+    const ctx = document.getElementById('myChart');
+
+    // new Chart
+ }
