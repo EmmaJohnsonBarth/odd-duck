@@ -1,37 +1,35 @@
 'use strict';
-
 console.log('js is connected.');
 
-// Create an algorithm that will randomly generate three unique product images from the images directory and display them side-by-side-by-side in the browser window.
-
-// For each of the three images, increment its property of times it has been shown by one.
-
-// Attach an event listener to the section of the HTML page where the images are going to be displayed.
-
-// Once the users ‘clicks’ a product, generate three new products for the user to pick from.
-// As a user, I would like to track the selections made by viewers so that I can determine which products to begin production on.
-// In the constructor function define a property to hold the number of times a product has been clicked.
-
-// After every selection by the viewer, update the newly added property to reflect if it was clicked.
-
-// ???
-// let ProductContainer = document.querySelector('section');
-// let resultButton = document.querySelector('section + div');
-// let image1 = document.querySelector('section img:first-child');
-// let image2 = document.querySelector('section img:nth-child(2)');
-
+//Global Variables:
 
 let clicks = 0;
+const allProductsArray = [];
 let maxAttemptsAllowed = 25;
-Product.allProductsArray = [];
-//why is this array in the Product constructor obj?
+const previouslyPickedProducts = [];
+
+//Grab HTML Elements:
+
+let productImageSelectionTag = document.getElementById('all_products');
+let leftProductImage = document.getElementById('left_product_img');
+let centerProductImage = document.getElementById('center_product_img');
+let rightProductImage = document.getElementById('right_product_img');
+
+let leftProductOnThePage;
+let centerProductOnThePage;
+let rightProductOnThePage;
+
+let resultsList = document.getElementById('resultsList');
+let chartResults = document.getElementById('chartResults');
+
+//Functions:
 
 function Product(productName, imgFilePath) {
     this.productName = productName;
     this.imgFilePath = imgFilePath;
     this.timesShown = 0;
     this.click = 0;
-    Product.allProductsArray.push(this);
+    allProductsArray.push(this);
 }
 
 function getRandomNumber() {
