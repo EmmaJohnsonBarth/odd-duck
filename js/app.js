@@ -57,30 +57,14 @@ new Product('Weird Wine Glass', 'images/wine-glass.jpg');
 
 //Other Functions:
 
-function getRandomNumber() {
-    return Math.floor(Math.random() * allProductsArray.length);
-  }
+
 
 // console.log(allProductsArray[0])
 
-function renderProducts() {
-    let ProductIndices = [];
-    while (ProductIndices.length < 3) {
-        const randomIndex = getRandomNumber();
-        if (!ProductIndices.includes(randomIndex)) {
-            ProductIndices.push(randomIndex)
-        };
-    };
-    let Product1 = allProductsArray[ProductIndices[0]];
-    let Product2 = allProductsArray[ProductIndices[1]];
-    let Product3 = allProductsArray[ProductIndices[2]];
-    console.log(`Product 1 is ${Product1.productName} and Product2 is ${Product2.productName} and Product3 is ${Product3.productName}`)
-}
 
-renderProducts();
 
 function handleClickOnProduct(event) {
-
+//tag name is 'IMG'? Case sens?
     if (event.target.tagName !== 'IMG') {
         return;
     };
@@ -101,5 +85,37 @@ function handleClickOnProduct(event) {
         rightProductOnThePage.click++
     }
 
-    
+    const tempPickedProducts = [];
+
+    let 
+
 }
+
+function getRandomNumber() {
+    return Math.floor(Math.random() * allProductsArray.length);
+  }
+  
+function renderProducts() {
+    let ProductIndices = [];
+    while (ProductIndices.length < 3) {
+        const randomIndex = getRandomNumber();
+        if (!ProductIndices.includes(randomIndex)) {
+            ProductIndices.push(randomIndex)
+        };
+    };
+    let Product1 = allProductsArray[ProductIndices[0]];
+    let Product2 = allProductsArray[ProductIndices[1]];
+    let Product3 = allProductsArray[ProductIndices[2]];
+    console.log(`Product 1 is ${Product1.productName} and Product2 is ${Product2.productName} and Product3 is ${Product3.productName}`)
+}
+
+// renderProducts();
+
+
+
+
+function handleResultsList(){}
+
+function handleChartResults(){}
+
+function makeAProductChart(){}
