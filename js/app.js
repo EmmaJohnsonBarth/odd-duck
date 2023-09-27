@@ -2,18 +2,18 @@
 console.log('js is connected.');
 
 //Global Variables:
-
 let totalClick = 0;
 const allProductsArray = [];
 let maxAttemptsAllowed = 25;
 const previouslyPickedProducts = [];
+// console.log('total clicks: ', totalClick)
 
 //Grab HTML Elements:
-
 let productImageSelectionTag = document.getElementById('all_products');
 let leftProductImage = document.getElementById('left_product_img');
 let centerProductImage = document.getElementById('center_product_img');
 let rightProductImage = document.getElementById('right_product_img');
+console.log('right product image: ', rightProductImage)
 
 //do we need to declare these here?
 let leftProductOnThePage;
@@ -25,14 +25,26 @@ let chartResults = document.getElementById('chartResults');
 
 //Constructor Function:
 
-function Product(productName, imgFilePath) {
+const Product = function (productName, imgFilePath, clicks, timesShown) {
     this.productName = productName;
     this.imgFilePath = imgFilePath;
-    this.timesShown = 0;
-    this.click = 0;
+    if (clicks) {
+        this.clicks = clicks
+    } else {
+        this.clicks = 0;
+    }
+    if (timesShown) {
+        this.timesShown = timesShown
+    } else {
+        timesShown = 0;
+    }
     allProductsArray.push(this);
 };
 
+//come back ot this:
+// let savedProductString = localStorage.getItem('savedProductVoteRound');
+//more parsing stuff here
+console.log('all products array', allProductsArray)
 new Product('R2D2 Bag', 'images/bag.jpg');
 new Product('Banana Chopper', 'images/banana.jpg');
 new Product('ipad TP Stand', 'images/bathroom.jpg');
@@ -40,7 +52,7 @@ new Product('Open Boots', 'images/boots.jpg');
 new Product('Breakfast Machine', 'images/breakfast.jpg');
 new Product('Meatball Gum', 'images/bubblegum.jpg');
 new Product('Backwards Chair', 'images/chair.jpg');
-new Product('Cthulu Figure', 'images/cthulu.jpg');
+new Product('Cthulu Figure', 'images/cthulhu.jpg');
 new Product('Duck Muzzle', 'images/dog-duck.jpg');
 new Product('Dragon Meat', 'images/dragon.jpg');
 new Product('Utensil Pen', 'images/pen.jpg');
@@ -53,6 +65,9 @@ new Product('Unicorn Meat', 'images/unicorn.jpg');
 new Product('Inverse Watering Can', 'images/water-can.jpg');
 new Product('Weird Wine Glass', 'images/wine-glass.jpg');
 
+leftProductOnThePage = allProductsArray[0];
+centerProductOnThePage = allProductsArray[1];
+rightProductOnThePage = allProductsArray[2];
 
 // console.log('all Products array', allProductsArray);
 
@@ -82,8 +97,8 @@ function handleClickOnProduct(event) {
         rightProductOnThePage.click++
     }
 
-    //return this?
-    const tempPickedProducts = [];
+    //using this?
+    // const tempPickedProducts = [];
 }
 
 function getRandomNumber() {
@@ -91,6 +106,7 @@ function getRandomNumber() {
 }
 
 function renderProducts() {
+    console.log('in the render products');
     let ProductIndices = [];
     while (ProductIndices.length < 3) {
         const randomIndex = getRandomNumber();
@@ -111,7 +127,9 @@ function renderProducts() {
     previouslyPickedProducts.push(allProductsArray[centerProductOnThePage])
     previouslyPickedProducts.push(allProductsArray[rightProductOnThePage])
 
-    if (totalClick === 25){
+    if (totalClick === 25) {
+        //uncomment later:
+        //localStorage.setItem('savedProductVoteRound', JSON.stringify(allProducts));
         productImageSelectionTag.removeEventListener('click', handleClickOnProduct);
     }
 }
@@ -119,31 +137,28 @@ function renderProducts() {
 renderProducts();
 
 function handleResultsList() {
-    // document.getElementById(product-click-list)
-    // document.getElementById(product-click-list)
-    let ul = document.getElementById(product-click-list) 
-    for (let i=0; i<allProductsArray.length;i++) {
+    let ul = document.getElementById('product-click-list');
+    ul.innerHTML ='';
+    for (let i = 0; i < allProductsArray.length; i++) {
         let currentProduct = allProductsArray[i];
         let li = document.createElement('li');
-        li.textContent=currentProduct.productName + ' got ' + currentProduct.click + 'votes';
+        li.textContent = currentProduct.productName + ' got ' + currentProduct.click + 'votes';
         ul.appendChild(li);
     }
- }
+}
 
- //??
+//??
 function handleChartResults() {
     makeAProductChart();
- }
+}
 
- productImageSelectionTag.addEventListener('click', handleClickOnProduct);
+productImageSelectionTag.addEventListener('click', handleClickOnProduct);
 
- resultsList.addEventListener('click', handleResultsList);
+resultsList.addEventListener('click', handleResultsList);
 
- chartResults.addEventListener('click', handleChartResults);
+chartResults.addEventListener('click', handleChartResults);
 
- leftProductOnThePage = allProductsArray[0];
- centerProductOnThePage = allProductsArray[1];
- rightProductOnThePage = allProductsArray[2];
+
 
 function makeAProductChart() {
     const productNamesArray = [];
@@ -153,12 +168,31 @@ function makeAProductChart() {
         productNamesArray.push(singleProductName)
     }
 
-    for(let i = 0; i<allProductsArray.length; i++) {
+    for (let i = 0; i < allProductsArray.length; i++) {
         let singleProductClick = allProductsArray[i].click;
         productClickArray.push(singleProductClick)
     }
 
     const ctx = document.getElementById('myChart');
 
-    // new Chart
- }
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: productNamesArray,
+            datasets: [{
+                label: 'Product Clicks',
+                data: productClickArray,
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(0, 99, 132)',
+                borderWidth: 4
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}

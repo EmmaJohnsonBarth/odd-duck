@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
-    <!-- Split into style and grid? -->
+    <link rel="stylesheet" href="css/grid.css">
 </head>
 
 <body>
@@ -21,40 +21,53 @@
     <main>
         <h2> Select which of the following products you would be more likely to purchase:</h2>
         <!-- create event listener for images and then track some data for market based on clicks and views -->
-        <div class="grid-container">
-       
-            <section id="all_products">
+        <section id="all_products" class="grid-container">
 
-                <div id="left_product">
-                    <img id="left_product_img" />
-                    <!-- add src and alt here? -->
-                    
-                </div>
+            <div class="grid-item">
+                <img id="left_product_img" />
+            </div>
 
-                <div id="center_product">
-                    <img id="center_product_img" />
-                    <!-- add src and alt here? -->
-                </div>
+            <div class="grid-item">
+                <img id="center_product_img" />
 
-                <div id="right_product">
-                    <img id="right_product_img" />
-                    <!-- add src and alt here? -->
-                </div>
-            </section>
-            
-            <section class="number-of-likes">
-                <ul id="products-clicks-list">
-                    <h2>Number of Likes</h2>
-                    <li>PlaceholderProduct1: 0</li>
-                    <li>PlaceholderProduct2: 0</li>
-                    <li>PlaceholderProduct3: 0</li>
-                </ul>
-            </section>
-        </div>
+            </div>
+
+            <div class="grid-item">
+                <img id="right_product_img" />
+            </div>
+
+
+            <canvas id="myChart"></canvas>
+            <button id="resultsList">Click to See Results List</button>
+            <button id="chartResults">Click to See Chart Results</button>
+
+            <ul id="product-click-list">
+                <h2>Product Likes</h2>
+                <li>R2D2 Bag</li>
+                <li>Banana Chopper</li>
+                <li>ipad TP Stand</li>
+                <li>Open Boots</li>
+                <li>Breakfast Machine</li>
+                <li>Meatball Gum</li>
+                <li>Backwards Chair</li>
+                <li>Cthulu Figure</li>
+                <li>Duck Muzzle</li>
+                <li>Dragon Meat</li>
+                <li>Utensil Pen</li>
+                <li>Dog Sweeper</li>
+                <li>Pizza Scissors</li>
+                <li>Shark Sleeping Bag</li>
+                <li>Baby Sweep</li>
+                <li>Tauntaun Slwwping Bag</li>
+                <li>Unicorn Meat</li>
+                <li>Inverse Watering Can</li>
+                <li>Weird Wine Glass</li>
+            </ul>
     </main>
-    <footer>
-        <button>View Results</button>
-    </footer>
+    <!-- <footer>
+
+    </footer> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/app.js"></script>
 </body>
 
