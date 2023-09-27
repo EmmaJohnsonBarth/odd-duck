@@ -44,7 +44,7 @@ const Product = function (productName, imgFilePath, clicks, timesShown) {
 //come back ot this:
 // let savedProductString = localStorage.getItem('savedProductVoteRound');
 //more parsing stuff here
-
+console.log('all products array', allProductsArray)
 new Product('R2D2 Bag', 'images/bag.jpg');
 new Product('Banana Chopper', 'images/banana.jpg');
 new Product('ipad TP Stand', 'images/bathroom.jpg');
@@ -106,6 +106,7 @@ function getRandomNumber() {
 }
 
 function renderProducts() {
+    console.log('in the render products');
     let ProductIndices = [];
     while (ProductIndices.length < 3) {
         const randomIndex = getRandomNumber();
@@ -137,6 +138,7 @@ renderProducts();
 
 function handleResultsList() {
     let ul = document.getElementById('product-click-list');
+    ul.innerHTML ='';
     for (let i = 0; i < allProductsArray.length; i++) {
         let currentProduct = allProductsArray[i];
         let li = document.createElement('li');
