@@ -40,7 +40,7 @@ new Product('Open Boots', 'images/boots.jpg');
 new Product('Breakfast Machine', 'images/breakfast.jpg');
 new Product('Meatball Gum', 'images/bubblegum.jpg');
 new Product('Backwards Chair', 'images/chair.jpg');
-new Product('Cthulu Figure', 'images/cthulu.jpg');
+new Product('Cthulu Figure', 'images/cthulhu.jpg');
 new Product('Duck Muzzle', 'images/dog-duck.jpg');
 new Product('Dragon Meat', 'images/dragon.jpg');
 new Product('Utensil Pen', 'images/pen.jpg');
@@ -158,7 +158,7 @@ function makeAProductChart() {
         productClickArray.push(singleProductClick)
     }
 
-    const ctx = document.getElementById('myChart');
+    const ctx = document.getElementById('myChart')
 
     // new Chart
  }
