@@ -1,36 +1,55 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Odd Duck</title>
+    <title>Odd Duck Products</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Split into style and grid? -->
 </head>
 
 <body>
     <header>
-        <h1>Odd Duck Products</h1>
+        <h1>Odd Duck Products.</h1>
     </header>
 
     <main>
+        <h2> Select which of the following products you would be more likely to purchase:</h2>
         <!-- create event listener for images and then track some data for market based on clicks and views -->
         <div class="grid-container">
-            <div class="grid-item">
-                <h2>Box 1. Select your favorite pizza!</h2>
-            </div>
-            <div class="grid-item">Box 2 Image1</div>
-            <div class="grid-item">Box 3 Image2</div>
-            <div class="grid-item">Box 4 Image3</div>
-            <div class="grid-item">Box 5. Ipsum Lorum</div>
-            <!-- <div class="grid-item">6</div>
-            <div class="grid-item">7</div>
-            <div class="grid-item">8</div>
-            <div class="grid-item">9</div> --> 
+       
+            <section id="all_products">
+
+                <div id="left_product">
+                    <img id="left_product_img" />
+                    <!-- add src and alt here? -->
+                    
+                </div>
+
+                <div id="center_product">
+                    <img id="center_product_img" />
+                    <!-- add src and alt here? -->
+                </div>
+
+                <div id="right_product">
+                    <img id="right_product_img" />
+                    <!-- add src and alt here? -->
+                </div>
+            </section>
+            
+            <section class="number-of-likes">
+                <ul id="products-clicks-list">
+                    <h2>Number of Likes</h2>
+                    <li>PlaceholderProduct1: 0</li>
+                    <li>PlaceholderProduct2: 0</li>
+                    <li>PlaceholderProduct3: 0</li>
+                </ul>
+            </section>
         </div>
     </main>
     <footer>
