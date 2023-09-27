@@ -2,19 +2,18 @@
 console.log('js is connected.');
 
 //Global Variables:
-
 let totalClick = 0;
 const allProductsArray = [];
 let maxAttemptsAllowed = 25;
 const previouslyPickedProducts = [];
-console.log('total clicks: ', totalClick)
+// console.log('total clicks: ', totalClick)
 
 //Grab HTML Elements:
-
 let productImageSelectionTag = document.getElementById('all_products');
 let leftProductImage = document.getElementById('left_product_img');
 let centerProductImage = document.getElementById('center_product_img');
 let rightProductImage = document.getElementById('right_product_img');
+console.log('right product image: ', rightProductImage)
 
 //do we need to declare these here?
 let leftProductOnThePage;
@@ -26,13 +25,25 @@ let chartResults = document.getElementById('chartResults');
 
 //Constructor Function:
 
-function Product(productName, imgFilePath) {
+const Product = function (productName, imgFilePath, clicks, timesShown) {
     this.productName = productName;
     this.imgFilePath = imgFilePath;
-    this.timesShown = 0;
-    this.click = 0;
+    if (clicks) {
+        this.clicks = clicks
+    } else {
+        this.clicks = 0;
+    }
+    if (timesShown) {
+        this.timesShown = timesShown
+    } else {
+        timesShown = 0;
+    }
     allProductsArray.push(this);
 };
+
+//come back ot this:
+// let savedProductString = localStorage.getItem('savedProductVoteRound');
+//more parsing stuff here
 
 new Product('R2D2 Bag', 'images/bag.jpg');
 new Product('Banana Chopper', 'images/banana.jpg');
@@ -54,6 +65,9 @@ new Product('Unicorn Meat', 'images/unicorn.jpg');
 new Product('Inverse Watering Can', 'images/water-can.jpg');
 new Product('Weird Wine Glass', 'images/wine-glass.jpg');
 
+leftProductOnThePage = allProductsArray[0];
+centerProductOnThePage = allProductsArray[1];
+rightProductOnThePage = allProductsArray[2];
 
 // console.log('all Products array', allProductsArray);
 
@@ -83,8 +97,8 @@ function handleClickOnProduct(event) {
         rightProductOnThePage.click++
     }
 
-    //return this?
-    const tempPickedProducts = [];
+    //using this?
+    // const tempPickedProducts = [];
 }
 
 function getRandomNumber() {
@@ -112,7 +126,9 @@ function renderProducts() {
     previouslyPickedProducts.push(allProductsArray[centerProductOnThePage])
     previouslyPickedProducts.push(allProductsArray[rightProductOnThePage])
 
-    if (totalClick === 25){
+    if (totalClick === 25) {
+        //uncomment later:
+        //localStorage.setItem('savedProductVoteRound', JSON.stringify(allProducts));
         productImageSelectionTag.removeEventListener('click', handleClickOnProduct);
     }
 }
@@ -120,31 +136,27 @@ function renderProducts() {
 renderProducts();
 
 function handleResultsList() {
-    // document.getElementById(product-click-list)
-    // document.getElementById(product-click-list)
-    let ul = document.getElementById(product-click-list) 
-    for (let i=0; i<allProductsArray.length;i++) {
+    let ul = document.getElementById('product-click-list');
+    for (let i = 0; i < allProductsArray.length; i++) {
         let currentProduct = allProductsArray[i];
         let li = document.createElement('li');
-        li.textContent=currentProduct.productName + ' got ' + currentProduct.click + 'votes';
+        li.textContent = currentProduct.productName + ' got ' + currentProduct.click + 'votes';
         ul.appendChild(li);
     }
- }
+}
 
- //??
+//??
 function handleChartResults() {
     makeAProductChart();
- }
+}
 
- productImageSelectionTag.addEventListener('click', handleClickOnProduct);
+productImageSelectionTag.addEventListener('click', handleClickOnProduct);
 
- resultsList.addEventListener('click', handleResultsList);
+resultsList.addEventListener('click', handleResultsList);
 
- chartResults.addEventListener('click', handleChartResults);
+chartResults.addEventListener('click', handleChartResults);
 
- leftProductOnThePage = allProductsArray[0];
- centerProductOnThePage = allProductsArray[1];
- rightProductOnThePage = allProductsArray[2];
+
 
 function makeAProductChart() {
     const productNamesArray = [];
@@ -154,7 +166,7 @@ function makeAProductChart() {
         productNamesArray.push(singleProductName)
     }
 
-    for(let i = 0; i<allProductsArray.length; i++) {
+    for (let i = 0; i < allProductsArray.length; i++) {
         let singleProductClick = allProductsArray[i].click;
         productClickArray.push(singleProductClick)
     }
@@ -181,4 +193,4 @@ function makeAProductChart() {
             }
         }
     });
- }
+}

@@ -28,7 +28,8 @@ h2 {
 
 main {
     background-color: aliceblue;
-    width: 1200px;
+    /* put into different units? */
+    width: 1400px;
     margin: 0 auto;
 }
 
