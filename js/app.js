@@ -25,13 +25,13 @@ let chartResults = document.getElementById('chartResults');
 
 //Constructor Function:
 
-const Product = function (productName, imgFilePath, clicks, timesShown) {
+const Product = function (productName, imgFilePath, click, timesShown) {
     this.productName = productName;
     this.imgFilePath = imgFilePath;
-    if (clicks) {
-        this.clicks = clicks
+    if (click) {
+        this.click = click
     } else {
-        this.clicks = 0;
+        this.click = 0;
     }
     if (timesShown) {
         this.timesShown = timesShown
@@ -136,13 +136,29 @@ function renderProducts() {
 
 renderProducts();
 
+//old version (without duplicate)
+// function handleResultsList() {
+//     let ul = document.getElementById('product-click-list');
+//     ul.innerHTML ='';
+//     for (let i = 0; i < allProductsArray.length; i++) {
+//         let currentProduct = allProductsArray[i];
+//         let li = document.createElement('li');
+//         li.textContent = currentProduct.productName + ' got ' + currentProduct.click + 'votes';
+//         ul.appendChild(li);
+//     }
+// }
+
+//T's version
 function handleResultsList() {
     let ul = document.getElementById('product-click-list');
-    ul.innerHTML ='';
+    // Clear the previous results
+    ul.innerHTML = '';
+
     for (let i = 0; i < allProductsArray.length; i++) {
         let currentProduct = allProductsArray[i];
         let li = document.createElement('li');
-        li.textContent = currentProduct.productName + ' got ' + currentProduct.click + 'votes';
+        // Create the sentence with the product's name, clicks, and views
+        li.textContent = `${currentProduct.productName} had ${currentProduct.click} votes, and was seen ${currentProduct.timesShown} times.`;
         ul.appendChild(li);
     }
 }
