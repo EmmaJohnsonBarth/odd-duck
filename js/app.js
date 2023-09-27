@@ -13,7 +13,7 @@ let productImageSelectionTag = document.getElementById('all_products');
 let leftProductImage = document.getElementById('left_product_img');
 let centerProductImage = document.getElementById('center_product_img');
 let rightProductImage = document.getElementById('right_product_img');
-console.log('right product image: ', rightProductImage)
+// console.log('right product image: ', rightProductImage)
 
 //do we need to declare these here?
 let leftProductOnThePage;
@@ -44,7 +44,7 @@ const Product = function (productName, imgFilePath, clicks, timesShown) {
 //come back ot this:
 // let savedProductString = localStorage.getItem('savedProductVoteRound');
 //more parsing stuff here
-console.log('all products array', allProductsArray)
+// console.log('all products array', allProductsArray)
 new Product('R2D2 Bag', 'images/bag.jpg');
 new Product('Banana Chopper', 'images/banana.jpg');
 new Product('ipad TP Stand', 'images/bathroom.jpg');
@@ -76,29 +76,28 @@ rightProductOnThePage = allProductsArray[2];
 // console.log(allProductsArray[0])
 
 function handleClickOnProduct(event) {
+    // console.log(event.target.tagName);
     //tag name is 'IMG'? Case sens?
-    if (event.target.tagName !== 'img') {
-        return;
+    if (event.target.tagName !== 'IMG') {
+        alert('click on photo');
     };
 
     totalClick++;
-
+    // console.log(totalClick);
     leftProductOnThePage.timesShown++;
     centerProductOnThePage.timesShown++;
     rightProductImage.timesShown++;
 
     if (event.target.id === 'left_product_img') {
-        leftProductOnThePage.click++
+        leftProductOnThePage.clicks++
     }
     if (event.target.id === 'center_product_img') {
-        centerProductOnThePage.click++
+        centerProductOnThePage.clicks++
     }
     if (event.target.id === 'right_product_img') {
-        rightProductOnThePage.click++
+        rightProductOnThePage.clicks++
     }
-
-    //using this?
-    // const tempPickedProducts = [];
+    renderProducts();
 }
 
 function getRandomNumber() {
@@ -106,7 +105,7 @@ function getRandomNumber() {
 }
 
 function renderProducts() {
-    console.log('in the render products');
+    // console.log('in the render products');
     let ProductIndices = [];
     while (ProductIndices.length < 3) {
         const randomIndex = getRandomNumber();
@@ -126,23 +125,25 @@ function renderProducts() {
     previouslyPickedProducts.push(allProductsArray[leftProductOnThePage])
     previouslyPickedProducts.push(allProductsArray[centerProductOnThePage])
     previouslyPickedProducts.push(allProductsArray[rightProductOnThePage])
-
+    // console.log('outside',totalClick);
     if (totalClick === 25) {
         //uncomment later:
+        console.log('inside',totalClick);
         //localStorage.setItem('savedProductVoteRound', JSON.stringify(allProducts));
         productImageSelectionTag.removeEventListener('click', handleClickOnProduct);
-    }
+    } 
 }
 
-renderProducts();
+
 
 function handleResultsList() {
     let ul = document.getElementById('product-click-list');
     ul.innerHTML ='';
     for (let i = 0; i < allProductsArray.length; i++) {
         let currentProduct = allProductsArray[i];
+        console.log('CP',currentProduct.productName);
         let li = document.createElement('li');
-        li.textContent = currentProduct.productName + ' got ' + currentProduct.click + 'votes';
+        li.textContent = currentProduct.productName + ' got ' + currentProduct.clicks + 'votes';
         ul.appendChild(li);
     }
 }
@@ -196,3 +197,6 @@ function makeAProductChart() {
         }
     });
 }
+
+
+renderProducts();
