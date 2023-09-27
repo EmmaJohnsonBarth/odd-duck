@@ -7,6 +7,7 @@ let totalClick = 0;
 const allProductsArray = [];
 let maxAttemptsAllowed = 25;
 const previouslyPickedProducts = [];
+console.log('total clicks: ', totalClick)
 
 //Grab HTML Elements:
 
@@ -158,7 +159,26 @@ function makeAProductChart() {
         productClickArray.push(singleProductClick)
     }
 
-    const ctx = document.getElementById('myChart')
+    const ctx = document.getElementById('myChart');
 
-    // new Chart
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: productNamesArray,
+            datasets: [{
+                label: 'Product Clicks',
+                data: productClickArray,
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(0, 99, 132)',
+                borderWidth: 4
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
  }
