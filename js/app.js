@@ -125,6 +125,8 @@ function handleClickOnProduct(event) {
     if (totalClick === maxAttemptsAllowed) {
         productImageSelectionTag.removeEventListener('click', handleClickOnProduct);
         localStorage.setItem('savedProductVoteRound', JSON.stringify(allProductsArray));
+        // Console log for local storage
+        console.log('Data saved to local storage:', allProductsArray);
     } else {
         renderProducts();
     }
@@ -165,7 +167,7 @@ function makeAProductChart() {
     }
 
     const ctx = document.getElementById('myChart');
-    
+
     new Chart(ctx, {
         type: 'bar',
         data: {
