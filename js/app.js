@@ -5,8 +5,8 @@ console.log('js is connected.');
 let totalClick = 0;
 const allProductsArray = [];
 let maxAttemptsAllowed = 25;
-const previouslyPickedProducts = [];
-// console.log('total clicks: ', totalClick)
+// add array to keep track of last viewed products
+let lastViewed = [];
 
 //Grab HTML Elements:
 let productImageSelectionTag = document.getElementById('all_products');
@@ -15,75 +15,99 @@ let centerProductImage = document.getElementById('center_product_img');
 let rightProductImage = document.getElementById('right_product_img');
 // console.log('right product image: ', rightProductImage)
 
-//do we need to declare these here?
-let leftProductOnThePage;
-let centerProductOnThePage;
-let rightProductOnThePage;
-
-let resultsList = document.getElementById('resultsList');
-let chartResults = document.getElementById('chartResults');
+// Variables to store the currently displayed products
+let leftProductOnThePage, centerProductOnThePage, rightProductOnThePage;
 
 //Constructor Function:
-
 const Product = function (productName, imgFilePath, clicks, timesShown) {
     this.productName = productName;
     this.imgFilePath = imgFilePath;
-    if (clicks) {
-        this.clicks = clicks
-    } else {
-        this.clicks = 0;
-    }
-    if (timesShown) {
-        this.timesShown = timesShown
-    } else {
-        timesShown = 0;
-    }
+    this.clicks = clicks || 0;
+    this.timesShown = timesShown || 0;
     allProductsArray.push(this);
 };
 
-//come back ot this:
-// let savedProductString = localStorage.getItem('savedProductVoteRound');
-//more parsing stuff here
-// console.log('all products array', allProductsArray)
-new Product('R2D2 Bag', 'images/bag.jpg');
-new Product('Banana Chopper', 'images/banana.jpg');
-new Product('ipad TP Stand', 'images/bathroom.jpg');
-new Product('Open Boots', 'images/boots.jpg');
-new Product('Breakfast Machine', 'images/breakfast.jpg');
-new Product('Meatball Gum', 'images/bubblegum.jpg');
-new Product('Backwards Chair', 'images/chair.jpg');
-new Product('Cthulu Figure', 'images/cthulhu.jpg');
-new Product('Duck Muzzle', 'images/dog-duck.jpg');
-new Product('Dragon Meat', 'images/dragon.jpg');
-new Product('Utensil Pen', 'images/pen.jpg');
-new Product('Dog Sweeper', 'images/sweep.png');
-new Product('Pizza Scissors', 'images/scissors.jpg');
-new Product('Shark Sleeping Bag', 'images/shark.jpg');
-new Product('Baby Sweep', 'images/sweep.png');
-new Product('Tauntaun Slwwping Bag', 'images/tauntaun.jpg');
-new Product('Unicorn Meat', 'images/unicorn.jpg');
-new Product('Inverse Watering Can', 'images/water-can.jpg');
-new Product('Weird Wine Glass', 'images/wine-glass.jpg');
+// check for previously saved product votes in local storage
+let savedProductString = localStorage.getItem('savedProductVoteRound');
 
-leftProductOnThePage = allProductsArray[0];
-centerProductOnThePage = allProductsArray[1];
-rightProductOnThePage = allProductsArray[2];
+if (savedProductString) {
+    let savedProductData = JSON.parse(savedProductString);
+    for (let i = 0; i < savedProductData.length; i++) {
+        // Create product objects from saved data
+        new Product(
+            savedProductData[i].productName,
+            savedProductData[i].imgFilePath,
+            savedProductData[i].clicks,
+            savedProductData[i].timesShown
+        );
+    }
+} else {
+    // Create new product objects if local storage is empty
+    new Product('R2D2 Bag', 'images/bag.jpg');
+    new Product('Banana Chopper', 'images/banana.jpg');
+    new Product('ipad TP Stand', 'images/bathroom.jpg');
+    new Product('Open Boots', 'images/boots.jpg');
+    new Product('Breakfast Machine', 'images/breakfast.jpg');
+    new Product('Meatball Gum', 'images/bubblegum.jpg');
+    new Product('Backwards Chair', 'images/chair.jpg');
+    new Product('Cthulu Figure', 'images/cthulhu.jpg');
+    new Product('Duck Muzzle', 'images/dog-duck.jpg');
+    new Product('Dragon Meat', 'images/dragon.jpg');
+    new Product('Utensil Pen', 'images/pen.jpg');
+    new Product('Dog Sweeper', 'images/sweep.png');
+    new Product('Pizza Scissors', 'images/scissors.jpg');
+    new Product('Shark Sleeping Bag', 'images/shark.jpg');
+    new Product('Baby Sweep', 'images/sweep.png');
+    new Product('Tauntaun Slwwping Bag', 'images/tauntaun.jpg');
+    new Product('Unicorn Meat', 'images/unicorn.jpg');
+    new Product('Inverse Watering Can', 'images/water-can.jpg');
+    new Product('Weird Wine Glass', 'images/wine-glass.jpg');
+}
 
-// console.log('all Products array', allProductsArray);
+// // add let infront of these to initialize
+// let leftProductOnThePage = allProductsArray[0];
+// let centerProductOnThePage = allProductsArray[1];
+// let rightProductOnThePage = allProductsArray[2];
+// // console.log(allProductsArray[0])
 
-//Other Functions:
+function getRandomNumber() {
+    return Math.floor(Math.random() * allProductsArray.length);
+}
 
-// console.log(allProductsArray[0])
+function renderProducts() {
+    // Make this productIndices camelCasing
+    let productIndices = [];
+
+    while (productIndices.length < 3) {
+        const randomIndex = getRandomNumber();
+        if (!productIndices.includes(randomIndex) && !lastViewed.includes(randomIndex)) {
+            productIndices.push(randomIndex)
+        }
+    }
+
+    lastViewed = productIndices.slice();
+
+    leftProductOnThePage = allProductsArray[productIndices[0]];
+    centerProductOnThePage = allProductsArray[productIndices[1]];
+    rightProductOnThePage = allProductsArray[productIndices[2]];
+
+    leftProductImage.src = leftProductOnThePage.imgFilePath;
+    centerProductImage.src = centerProductOnThePage.imgFilePath;
+    rightProductImage.src = rightProductOnThePage.imgFilePath;
+}
+
+// Add event listener for clicking on products
+productImageSelectionTag.addEventListener('click', handleClickOnProduct);
 
 function handleClickOnProduct(event) {
     // console.log(event.target.tagName);
-    //tag name is 'IMG'? Case sens?
     if (event.target.tagName !== 'IMG') {
         alert('click on photo');
-    };
+        // return
+        return;
+    }
 
     totalClick++;
-    // console.log(totalClick);
     leftProductOnThePage.timesShown++;
     centerProductOnThePage.timesShown++;
     rightProductImage.timesShown++;
@@ -97,68 +121,36 @@ function handleClickOnProduct(event) {
     if (event.target.id === 'right_product_img') {
         rightProductOnThePage.clicks++
     }
-    renderProducts();
-}
 
-function getRandomNumber() {
-    return Math.floor(Math.random() * allProductsArray.length);
-}
-
-function renderProducts() {
-    // console.log('in the render products');
-    let ProductIndices = [];
-    while (ProductIndices.length < 3) {
-        const randomIndex = getRandomNumber();
-        if (!ProductIndices.includes(randomIndex)) {
-            ProductIndices.push(randomIndex)
-        };
-    };
-    let leftProductOnThePage = allProductsArray[ProductIndices[0]];
-    let centerProductOnThePage = allProductsArray[ProductIndices[1]];
-    let rightProductOnThePage = allProductsArray[ProductIndices[2]];
-
-    leftProductImage.src = leftProductOnThePage.imgFilePath;
-    centerProductImage.src = centerProductOnThePage.imgFilePath;
-    rightProductImage.src = rightProductOnThePage.imgFilePath;
-
-    let previouslyPickedProducts = [];
-    previouslyPickedProducts.push(allProductsArray[leftProductOnThePage])
-    previouslyPickedProducts.push(allProductsArray[centerProductOnThePage])
-    previouslyPickedProducts.push(allProductsArray[rightProductOnThePage])
-    // console.log('outside',totalClick);
-    if (totalClick === 25) {
-        //uncomment later:
-        console.log('inside',totalClick);
-        //localStorage.setItem('savedProductVoteRound', JSON.stringify(allProducts));
+    if (totalClick === maxAttemptsAllowed) {
         productImageSelectionTag.removeEventListener('click', handleClickOnProduct);
-    } 
+        localStorage.setItem('savedProductVoteRound', JSON.stringify(allProductsArray));
+        // Console log for local storage
+        console.log('Data saved to local storage:', allProductsArray);
+    } else {
+        renderProducts();
+    }
 }
 
-
-
+// This and below remained untouched
 function handleResultsList() {
     let ul = document.getElementById('product-click-list');
-    ul.innerHTML ='';
+    ul.innerHTML = '';
     for (let i = 0; i < allProductsArray.length; i++) {
         let currentProduct = allProductsArray[i];
-        console.log('CP',currentProduct.productName);
+        // console.log('CP',currentProduct.productName);
         let li = document.createElement('li');
-        li.textContent = currentProduct.productName + ' got ' + currentProduct.clicks + 'votes';
+        li.textContent = `${currentProduct.productName} had ${currentProduct.timesShown} views and was voted for ${currentProduct.clicks} times`;
         ul.appendChild(li);
     }
 }
 
-//??
 function handleChartResults() {
     makeAProductChart();
 }
 
-productImageSelectionTag.addEventListener('click', handleClickOnProduct);
-
 resultsList.addEventListener('click', handleResultsList);
-
 chartResults.addEventListener('click', handleChartResults);
-
 
 
 function makeAProductChart() {
@@ -170,7 +162,7 @@ function makeAProductChart() {
     }
 
     for (let i = 0; i < allProductsArray.length; i++) {
-        let singleProductClick = allProductsArray[i].click;
+        let singleProductClick = allProductsArray[i].clicks;
         productClickArray.push(singleProductClick)
     }
 
@@ -185,7 +177,7 @@ function makeAProductChart() {
                 data: productClickArray,
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(0, 99, 132)',
-                borderWidth: 4
+                borderWidth: 4,
             }]
         },
         options: {
