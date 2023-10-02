@@ -2,16 +2,17 @@
 
 # LAB - Number
 
-## Project Name
+## Odd Duck Products
 
-I build an app with a direct and powerful purpose. It does all of the things that it accomplishes well. I should describe the purpose and functionality so those that visit my README understand the app
+This site was made to survey users on which products they would most like to see brought to market. After each user makes their selection 25 times, no more selections can be made and results can be displayed. Local storage is utilized to track cumulative selections made by previous users.
 
-### Author: Student/Group Name
+### Author: Emma Johnson-Barth
 
 ### Links and Resources
 
-* [submission PR](http://xyz.com)
-* Any Links you used as reference
+* [Github Link](https://github.com/EmmaJohnsonBarth/odd-duck)
+* [w3 Schools](https://www.w3schools.com/)
+* [MDN Docs](https://developer.mozilla.org/en-US/)
 
 ### Lighthouse Accessibility Report Score
 
